@@ -24,18 +24,28 @@ public class MainActivity extends AppCompatActivity implements FragmentLocation.
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final String TAG = MainActivity.class.getName();
 
+    private String mLatitude;
+    private String mLongitude;
+    private GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        FragmentLocation fragmentLocation = FragmentLocation.newInstance();
-        transaction.replace(R.id.container, fragmentLocation);
-        transaction.commit();
-
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        FragmentLocation fragmentLocation = FragmentLocation.newInstance();
+//        transaction.replace(R.id.container, fragmentLocation);
+//        transaction.commit();
+        gps = new GPSTracker(this);
+        if (gps.canGetLocation()){
+            mLongitude = gps.getLongitude() + "";
+            mLatitude = gps.getLatitude() + "";
+            onShowSunShine(mLongitude, mLatitude);
+        }else{
+            gps.showSettingsAlert();
+        }
     }
 
     @Override

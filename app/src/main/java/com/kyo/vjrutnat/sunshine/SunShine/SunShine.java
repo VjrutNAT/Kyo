@@ -136,20 +136,18 @@ public class SunShine extends Fragment {
                             JSONArray arrayInnerCity = objCity.optJSONArray("address_components");
                             for (int i = 0; i < arrayInnerCity.length(); i++) {
                                 JSONObject zero = arrayInnerCity.optJSONObject(i);
-                                String address = zero.optString("long_name");
                                 JSONArray types = zero.optJSONArray("types");
-                                for (int t = 0; t < types.length(); t++){
-                                    String localCity = types.optString(t);
-                                    if (localCity.equals("locality")) {
-                                        mCityName = address.replace("City", "");
-                                        Log.d(TAG, "city" + mCityName);
-                                    }
+                                String localCity = types.optString(0);
+                                if (localCity.equals("locality")) {
+                                    String address = zero.optString("long_name");
+                                    mCityName = address.replace("City", "");
+                                    Log.d(TAG, "city" + mCityName);
                                 }
                             }
                         }
                         tvDate.setText(mCityName + ", Today, " + getMonthName(mMonth) + " " + mDay);
-                        Log.d(TAG, getMonthName(mMonth) +"");
-                        Log.d(TAG, mDay +"");
+                        Log.d(TAG, getMonthName(mMonth) + "");
+                        Log.d(TAG, mDay + "");
                         Log.d(TAG, tvDate.getText().toString());
                     }
                 }, new Response.ErrorListener() {
