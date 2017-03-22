@@ -138,10 +138,12 @@ public class SunShine extends Fragment {
                                 JSONObject zero = arrayInnerCity.optJSONObject(i);
                                 String address = zero.optString("long_name");
                                 JSONArray types = zero.optJSONArray("types");
-                                String localCity = types.optString(0);
-                                if (localCity.equals("locality")) {
-                                    mCityName = address.replace("City", "");
-                                    Log.d(TAG, "city" + mCityName);
+                                for (int t = 0; t < types.length(); t++){
+                                    String localCity = types.optString(t);
+                                    if (localCity.equals("locality")) {
+                                        mCityName = address.replace("City", "");
+                                        Log.d(TAG, "city" + mCityName);
+                                    }
                                 }
                             }
                         }
