@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -14,7 +16,7 @@ import com.android.volley.toolbox.Volley;
  * Created by VjrutNAT on 12/29/2016.
  */
 
-public class AppController extends Application {
+public class AppController extends MultiDexApplication {
 
     private static AppController appController;
     private RequestQueue requestQueue;
@@ -22,6 +24,7 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
         appController = this;
     }
 
