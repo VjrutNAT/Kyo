@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrey">
+    android:id="@+id/background_image_view"
+    android:background="@drawable/scatteredclouds">
 
     <TextView
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorWhite"
         android:id="@+id/tv_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +17,7 @@
 
     <TextView
         android:id="@+id/tv_date"
+        android:textColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_day"
@@ -39,7 +41,7 @@
 
             <TextView
                 android:gravity="center"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/tv_temperature_from"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +51,7 @@
                 android:gravity="center"
                 android:id="@+id/tv_temperature_to"
                 android:padding="@dimen/padding"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/numbersize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -65,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="97dp" />
             <TextView
+                android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:id="@+id/tv_clouds"
                 android:padding="@dimen/padding"

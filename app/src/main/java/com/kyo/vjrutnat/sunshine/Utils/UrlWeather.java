@@ -14,6 +14,10 @@ public class UrlWeather {
         String url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0634efb262d9398a09fc2693c5120589";
         return url;
     }
+    public static final String updateWeatherUrl(String lon, String lat){
+        String url = "http://samples.openweathermap.org/data/2.5/forecast?lat=" + lat +"&lon=" + lon + "&appid=0634efb262d9398a09fc2693c5120589";
+        return url;
+    }
 
     public static final String locationWeekWeatherUrl(String lon, String lat){
         String url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + lat + "&lon="+ lon + "&cnt=10&appid=0634efb262d9398a09fc2693c5120589";

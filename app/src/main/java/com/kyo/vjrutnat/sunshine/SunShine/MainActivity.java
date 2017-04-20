@@ -1,5 +1,6 @@
 package com.kyo.vjrutnat.sunshine.SunShine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -27,8 +28,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.kyo.vjrutnat.sunshine.R;
 
-public class MainActivity extends AppCompatActivity implements FragmentLocation.OnShowSunShineListener, SunShine.OnShowDetailsListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class MainActivity extends AppCompatActivity implements SunShine.OnShowDetailsListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final String TAG = MainActivity.class.getName();
 
@@ -51,19 +52,8 @@ public class MainActivity extends AppCompatActivity implements FragmentLocation.
                     .addApi(LocationServices.API)
                     .build();
         }
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        FragmentLocation fragmentLocation = FragmentLocation.newInstance();
-//        transaction.replace(R.id.container, fragmentLocation);
-////        transaction.commit();
-//        gps = new GPSTracker(this);
-//        if (gps.canGetLocation()){
-//            mLongitude = gps.getLongitude() + "";
-//            mLatitude = gps.getLatitude() + "";
-//            onShowSunShine(mLongitude, mLatitude);
-//        }else{
-//            gps.showSettingsAlert();
-//        }
+
+        gps = new GPSTracker(this);
     }
 
     @Override
@@ -117,10 +107,8 @@ public class MainActivity extends AppCompatActivity implements FragmentLocation.
                 onShowSunShine(lon, lat);
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(MainActivity.this, data);
-                // TODO: Handle the error.
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
             }
         }
     }
@@ -149,12 +137,13 @@ public class MainActivity extends AppCompatActivity implements FragmentLocation.
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null){
+        if (mLastLocation != null) {
             mLongitude = mLastLocation.getLongitude() + "";
             mLatitude = mLastLocation.getLatitude() + "";
             onShowSunShine(mLongitude, mLatitude);
-        }else {
-            Toast.makeText(MainActivity.this ,"Not found Location", Toast.LENGTH_LONG).show();
+        } else {
+            gps.showSettingsAlert();
+            Toast.makeText(MainActivity.this, "Not found Location", Toast.LENGTH_LONG).show();
         }
     }
 
