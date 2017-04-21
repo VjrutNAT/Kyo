@@ -144,9 +144,9 @@ public class FragmentDetails extends Fragment {
         } else if(description.equals("tormado")) {
             mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.tornado));
         } else if(description.equals("sleet")) {
-            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.sleet));
+//            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.sleet));
         } else if(description.equals("squalls")) {
-            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.squalls));
+//            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.squalls));
         } else if(description.equals("drizzle rain")) {
             mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.drizzlerain));
         } else if(description.equals("extreme rain")) {

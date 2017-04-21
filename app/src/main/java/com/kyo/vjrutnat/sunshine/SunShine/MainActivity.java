@@ -28,7 +28,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.kyo.vjrutnat.sunshine.R;
 
-public class MainActivity extends AppCompatActivity implements SunShine.OnShowDetailsListener,
+public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final String TAG = MainActivity.class.getName();
@@ -114,22 +114,10 @@ public class MainActivity extends AppCompatActivity implements SunShine.OnShowDe
     }
 
 
-    @Override
-    public void onShowDetails(String mDay, String mStatus, String mTempMax, String mTempMin, String mIcon, String mHumidity, String mPressure, String mWind, String mDate) {
+    private void onShowSunShine(String lon, String lat) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        FragmentDetails fragmentDetails = FragmentDetails.newInstance(mDay, mStatus, mTempMax, mTempMin, mIcon, mHumidity, mPressure, mWind, mDate);
-        transaction.replace(R.id.container, fragmentDetails);
-        transaction.addToBackStack(FragmentDetails.TAG);
-        transaction.commit();
-    }
-
-
-    @Override
-    public void onShowSunShine(String lon, String lat) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        SunShine sunShine = new SunShine().newInstance(lon, lat);
+        SunShine sunShine = SunShine.newInstance(lon, lat);
         transaction.replace(R.id.container, sunShine);
         transaction.commit();
     }

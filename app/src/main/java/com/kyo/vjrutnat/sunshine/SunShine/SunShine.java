@@ -35,7 +35,6 @@ import java.util.TimeZone;
 public class SunShine extends Fragment {
 
     public static final String TAG = SunShine.class.getName();
-    public static OnShowDetailsListener mCallBackShowDetails;
     private ArrayList<Weather> mData;
     private RecyclerView mRecyclerView;
     private ProgressBar mPrgLoad;
@@ -52,11 +51,6 @@ public class SunShine extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mCallBackShowDetails = (OnShowDetailsListener) context;
-    }
 
     public static SunShine newInstance(String lon, String lat) {
         SunShine sunShine = new SunShine();
@@ -125,11 +119,11 @@ public class SunShine extends Fragment {
                 int tempMax = temperatureMax - 273;
                 int tempMin = temperatureMin - 273;
                 tvClouds.setText(description);
-                tvTemperature.setText(tempMax + "℃");
-                tvTempMax.setText("" + tempMax + "℃");
-                tvTempMin.setText("" + tempMin + "℃");
+                tvTemperature.setText(tempMax + "°C");
+                tvTempMax.setText(tempMax + "°C");
+                tvTempMin.setText(tempMin + "°C");
                 Picasso.with(getActivity()).load(UrlWeather.ICON_WEATHER_URL + icon + ".png").into(imvWeather);
-                getBackgound(description);
+                setBackground(description);
                 JsonObjectRequest jsonObject = new JsonObjectRequest(UrlWeather.locationCity(mLon, mLat), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -204,11 +198,11 @@ public class SunShine extends Fragment {
                     int temperatureMax = tempMax - 273;
                     int temperatureMin = tempMin - 273;
                     String dateFormat = getMonthName(month) + " " + day;
-                    Weather weatherDetails = new Weather(getDayName(dayOfWeek), clouds, temperatureMax + "℃", temperatureMin + "℃", humidity + "",
+                    Weather weatherDetails = new Weather(getDayName(dayOfWeek), clouds, temperatureMax + "°C", temperatureMin + "°C", humidity + "",
                             pressure + "", speed + "", icon, dateFormat);
                     mData.add(weatherDetails);
                 }
-                WeatherAdapter adapter = new WeatherAdapter(getActivity(), mData);
+                WeatherAdapter adapter = new WeatherAdapter(getActivity(), mData, SunShine.this);
                 mRecyclerView.setAdapter(adapter);
 
                 mPrgLoad.setVisibility(View.GONE);
@@ -224,12 +218,6 @@ public class SunShine extends Fragment {
         return view;
     }
 
-    public interface OnShowDetailsListener {
-        void onShowDetails(String mDay, String mStatus, String mTempMax, String mTempMin, String mIcon, String mHumidity,
-                           String mPressure, String mWind, String mDate);
-
-        void onShowSunShine(String lon, String lat);
-    }
 
     private String getDayName(int day) {
         switch (day) {
@@ -282,7 +270,7 @@ public class SunShine extends Fragment {
         return "Wrong month";
     }
 
-    public void getBackgound(String description) {
+    public void setBackground(String description) {
 
         if (description.equals("broken clouds")) {
             mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.brokenclouds));
@@ -311,9 +299,9 @@ public class SunShine extends Fragment {
         } else if (description.equals("tormado")) {
             mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.tornado));
         } else if (description.equals("sleet")) {
-            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.sleet));
+//            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.sleet));
         } else if (description.equals("squalls")) {
-            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.squalls));
+//            mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.squalls));
         } else if (description.equals("drizzle rain")) {
             mBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.drizzlerain));
         } else if (description.equals("extreme rain")) {

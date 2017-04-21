@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.kyo.vjrutnat.sunshine.Items.Weather;
 import com.kyo.vjrutnat.sunshine.R;
 import com.kyo.vjrutnat.sunshine.SunShine.FragmentDetails;
+import com.kyo.vjrutnat.sunshine.SunShine.SunShine;
 import com.kyo.vjrutnat.sunshine.Utils.UrlWeather;
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +32,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHoll
     private ArrayList<Weather> mData;
     private LayoutInflater mInflater;
 
-    public WeatherAdapter(Context mContext, ArrayList<Weather> mData) {
+    public WeatherAdapter(Context mContext, ArrayList<Weather> mData, SunShine sunShine) {
         this.mContext = mContext;
         this.mData = mData;
         mInflater = LayoutInflater.from(mContext);
